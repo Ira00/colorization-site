@@ -1,0 +1,30 @@
+{% extends "colorization_page/layout.html" %}
+
+{% block content %}
+
+    <h2>Реєстрація</h2>
+
+    {% if message %}
+        <div class="mb-3">{{ message }}</div>
+    {% endif %}
+
+    <form action="{% url 'register' %}" method="post">
+        {% csrf_token %}
+        <div class="form-group col-lg-6 mb-3">
+            <input class="form-control" autofocus type="text" name="username" placeholder="Ім'я користувача" required>
+        </div>
+        <div class="form-group col-lg-6 mb-3">
+            <input class="form-control" type="email" name="email" placeholder="Адреса електронної пошти" required>
+        </div>
+        <div class="form-group col-lg-6 mb-3">
+            <input class="form-control" type="password" name="password" placeholder="Пароль" required>
+        </div>
+        <div class="form-group col-lg-6 mb-3">
+            <input class="form-control" type="password" name="confirmation" placeholder="Підтвердити пароль" required>
+        </div>
+        <input class="btn btn-secondary" type="submit" value="Зареєструватися">
+    </form>
+
+    Вже маєте обліковий запис? <a href="{% url 'login' %}">Ввійти.</a>
+
+{% endblock %}

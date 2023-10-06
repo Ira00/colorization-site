@@ -1,0 +1,32 @@
+{% extends "colorization_page/layout.html" %}
+{% block title %} Особистий кабінет {% endblock %}
+{% block content %}
+<h2 class="display-6">Вітаємо в особистому кабінеті!</h2>
+{% for project in projects %}
+<p class="container mt-3 form-control bg-light">Дата: {{ project.time_create|date:"d-m-Y H:i" }}</p>
+<div class="row flex-wrap align-items-end justify-content-between">
+    <div class="mt-3 d-inline-block col-lg-4 col-md-6">
+        <img class="img-fluid rounded" src="{{ project.photo_before.url }}">
+    </div>
+    <div class="mt-3 d-inline-block col-lg-4 col-md-6">
+        <img class="img-fluid rounded" src="{{ project.photo_after.url }}">
+    </div>
+    <div class="col mt-3">
+        <form action="{% url 'delete_picture' project.pk %}" method="post">
+            {% csrf_token %}
+            <button class="btn btn-outline-secondary" type="submit">Видалити проєкт</button>
+        </form>
+        <div class="mt-3">
+            <a class='btn btn-outline-secondary' href="{{ project.photo_before.url }}"
+               download="{{ project.photo_before }}">Завантажити оригінал</a>
+        </div>
+        <div class="mt-3">
+            <a class='btn btn-outline-secondary' href="{{ project.photo_after.url }}"
+               download="{{ project.photo_after }}">Завантажити колоризоване</a>
+        </div>
+    </div>
+
+</div>
+
+{% endfor %}
+{%  endblock %}

@@ -1,0 +1,52 @@
+{% extends 'colorization_page/layout.html' %}
+
+{% block title %}
+Колоризація
+{% endblock %}
+
+{% block content %}
+<h2 class="display-6">Колоризуйте зображення онлайн</h2>
+<p class="lead">Наш розфарбовувач зображень на основі штучного інтелекту допоможе вам розфарбовувати чорно-білі
+    зображення автоматично і безкоштовно. Додайте реалістичних кольорів до своїх чорно-білих фотографій.</p>
+
+<div class="row">
+
+    <div class="col">
+        <div class="row">
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% if photo_after %}
+                <div class="mt-3 d-inline-block">
+                    <img class="img-fluid rounded" src="{{ photo_after.photo_before.url }}">
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-outline-secondary" id="new_photo">Колоризувати інше фото</button>
+                </div>
+
+
+                {% else %}
+                {{ form.photo_before }}
+                <div class="mt-3 d-inline-block">
+                    <img id="selected-image" class="img-fluid rounded">
+                </div>
+                <div class="mt-3">
+                    <button class="btn btn-outline-secondary d-none" id="colorize">Колоризувати</button>
+                </div>
+                {% endif %}
+            </form>
+
+
+        </div>
+    </div>
+    <div class="col">
+        {% if photo_after %}
+        <div class="mt-3 d-inline-block">
+            <img class="img-fluid rounded" src="{{ photo_after.photo_after.url }}">
+        </div>
+        <div class="mt-3">
+            <a class='btn btn-outline-secondary' href="{{ photo_after.photo_after.url }}" download="{{ photo_after.photo_after }}">Завантажити зображеня</a>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
